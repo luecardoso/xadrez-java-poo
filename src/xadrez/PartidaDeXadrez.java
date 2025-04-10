@@ -1,18 +1,21 @@
 package xadrez;
 
+import tabuleiro.Peca;
+import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
+import tabuleiro.exeption.TabuleiroException;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
 
 public class PartidaDeXadrez {
-	
+
 	private Tabuleiro tabuleiro;
-	
+
 	public PartidaDeXadrez() {
 		tabuleiro = new Tabuleiro(8, 8);
 		inicializarPartida();
 	}
-	
+
 	public PecaDeXadrez[][] getPecas() {
 		PecaDeXadrez[][] pecas = new PecaDeXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
 
@@ -24,15 +27,37 @@ public class PartidaDeXadrez {
 
 		return pecas;
 	}
-	
+
 	private void inicializarPartida() {
-		colocarNovaPeca('b', 6, new Torre(tabuleiro, Cor.PRETO));	
-	    colocarNovaPeca('e', 8, new Torre(tabuleiro, Cor.PRETO));
-	    colocarNovaPeca('e', 1, new Rei(tabuleiro, Cor.PRETO));
-	    colocarNovaPeca('a', 1, new Torre(tabuleiro, Cor.BRANCO));
+		colocarNovaPeca('b', 6, new Torre(tabuleiro, Cor.PRETO));
+		colocarNovaPeca('e', 8, new Torre(tabuleiro, Cor.PRETO));
+		colocarNovaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCO));
+		colocarNovaPeca('a', 1, new Torre(tabuleiro, Cor.BRANCO));
 	}
-	
+
 	private void colocarNovaPeca(char coluna, int linha, PecaDeXadrez peca) {
 		tabuleiro.adicionarPeca(peca, new PosicaoDoXadrez(coluna, linha).toPosicao());
+	}
+
+	public PecaDeXadrez excutarMovimento(PosicaoDoXadrez origem, PosicaoDoXadrez destino) {
+		Posicao origemPos = origem.toPosicao();
+		Posicao destinoPos = destino.toPosicao();
+		validarPosicaoDeOrigem(origemPos);
+		Peca pecaCapturada = moverPeca(origemPos, destinoPos);
+		return (PecaDeXadrez) pecaCapturada;
+	}
+
+	private Peca moverPeca(Posicao origemPos, Posicao destinoPos) {
+		Peca peca = tabuleiro.removerPeca(origemPos);
+		Peca pecaCapturada = tabuleiro.removerPeca(destinoPos);
+		
+		tabuleiro.adicionarPeca(peca, destinoPos);
+		return pecaCapturada;
+	}
+
+	private void validarPosicaoDeOrigem(Posicao pos) {
+		if (!tabuleiro.temPeca(pos)) {
+			throw new TabuleiroException("Não existe peça na posição de origem.");
+		}
 	}
 }

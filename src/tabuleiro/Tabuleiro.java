@@ -61,4 +61,17 @@ public class Tabuleiro {
 		}
 		return peca(pos) != null;
 	}
+	
+	public Peca removerPeca(Posicao pos) {
+		if (!existePosicao(pos)) {
+			throw new TabuleiroException("Posição inválida no tabuleiro.");
+		}
+		if (pecas[pos.getLinha()][pos.getColuna()] == null) {
+			return null;
+		}
+		Peca aux = peca(pos);
+		aux.posicao = null;
+		pecas[pos.getLinha()][pos.getColuna()] = null;
+		return aux;
+	}
 }
