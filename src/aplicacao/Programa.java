@@ -19,7 +19,7 @@ public class Programa {
 		Scanner sc = new Scanner(System.in);
 		List<PecaDeXadrez> 	pecasCapturadas = new ArrayList<>();
 		
-		while(true) {
+		while(!partida.isCheckMate()) {
 			try {
 				ImprimeTabuleiro.limparTela();
 				ImprimeTabuleiro.imprimirPartida(partida, pecasCapturadas);
@@ -47,6 +47,8 @@ public class Programa {
 				sc.nextLine();
 			}
 		}
+		ImprimeTabuleiro.limparTela();
+		ImprimeTabuleiro.imprimirPartida(partida, pecasCapturadas);
 	}
 
 }

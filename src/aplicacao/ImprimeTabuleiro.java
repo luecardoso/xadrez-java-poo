@@ -108,7 +108,17 @@ public class ImprimeTabuleiro {
 		imprimirPecasCapturadas(pecasCapturadas);
 		System.out.println();
 		System.out.println("Turno: " + partida.getTurno());
-		System.out.println("Aguardando jogador: " + partida.getJogadorAtual());
+		if (!partida.isCheckMate()) {
+			System.out.println("Aguardando jogador: " + partida.getJogadorAtual());
+			if (partida.isCheck()) {
+				System.out.println("CHECK!");
+			}
+		} else {
+			System.out.println("CHECKMATE!");
+			System.out.println("Vencedor: " + partida.getJogadorAtual());
+		}
+		
+		
 
 	}
 	
