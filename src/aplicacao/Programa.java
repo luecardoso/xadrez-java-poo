@@ -25,15 +25,16 @@ public class Programa {
 				System.out.print("Origem: ");
 				PosicaoDoXadrez origem = ImprimeTabuleiro.lerPosicaoDoXadrez(sc);
 				
+				boolean[][] possiveisMovimentos = partida.possiveisMovimentos(origem);
+				ImprimeTabuleiro.limparTela();
+				ImprimeTabuleiro.imprimirTabuleiro(partida.getPecas(), possiveisMovimentos);
+				
 				System.out.println();
 				System.out.print("Destino: ");
 				PosicaoDoXadrez destino = ImprimeTabuleiro.lerPosicaoDoXadrez(sc);
 				
 				PecaDeXadrez pecaCapturada = partida.excutarMovimento(origem, destino);
 
-				if (origem.equals("exit")) {
-					break;
-				}
 			} catch (XadrezException | InputMismatchException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();

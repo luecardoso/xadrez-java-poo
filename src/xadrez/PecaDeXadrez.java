@@ -1,9 +1,10 @@
 package xadrez;
 
 import tabuleiro.Peca;
+import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 
-public class PecaDeXadrez extends Peca {
+public abstract class PecaDeXadrez extends Peca {
 
 	private Cor cor;
 	private int contagemMovimentos;
@@ -18,16 +19,9 @@ public class PecaDeXadrez extends Peca {
 		return cor;
 	}
 
-	public int getContagemMovimentos() {
-		return contagemMovimentos;
-	}
-
-	public void incrementarContagemMovimentos() {
-		contagemMovimentos++;
-	}
-
-	public void decrementarContagemMovimentos() {
-		contagemMovimentos--;
+	protected boolean existePecaInimiga(Posicao pos) {
+		PecaDeXadrez p = (PecaDeXadrez) getTabuleiro().peca(pos);
+		return p != null && p.getCor() != cor;
 	}
 
 }
