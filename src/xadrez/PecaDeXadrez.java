@@ -18,6 +18,10 @@ public abstract class PecaDeXadrez extends Peca {
 	public Cor getCor() {
 		return cor;
 	}
+	
+	public int getContagemMovimentos() {
+		return contagemMovimentos;
+	}
 
 	protected boolean existePecaInimiga(Posicao pos) {
 		PecaDeXadrez p = (PecaDeXadrez) getTabuleiro().peca(pos);
@@ -26,5 +30,13 @@ public abstract class PecaDeXadrez extends Peca {
 	
 	public PosicaoDoXadrez getPosicaoDoXadrez() {
 		return PosicaoDoXadrez.fromPosicao(posicao);
+	}
+	
+	public void aumentarContagemMovimentos() {
+		contagemMovimentos++;
+	}
+	
+	public void diminuirContagemMovimentos() {
+		contagemMovimentos--;
 	}
 }
